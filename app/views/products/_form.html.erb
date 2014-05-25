@@ -1,4 +1,4 @@
-<%= form_for(@product) do |f| %>
+<%= simple_form_for(@product) do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -15,7 +15,12 @@
     <%= f.label :price %><br>
     <%= f.text_field :price %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.input_field :color, :as => :select, :collection => Product::COLOR, :include_blank => false %>
+  </div>  
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>
