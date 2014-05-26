@@ -15,11 +15,58 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
+
+  <div class="field", id="age">
     <%= f.label :age %><br>
     <%= f.input_field :age, :as => :select, :collection => Employee::AGE, :include_blank => false %>
   </div> 
+
+  <fieldset id="employee_age_comments">
+    <%= f.fields_for :comments do |builder| %>
+      <% if builder.object.attr_name.eql? "age" %>
+      <%= render 'comment_fields', :f => builder %>
+      <% end %>
+    <% end %>
+    <p class="links", id="add_age_comment_for_employee">
+      <%= link_to_add_association 'specify employee age', f, :comments, :render_options => {class:"btn", :locals => {:current_attr => "age" }} %>
+    </p>
+  </fieldset> 
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+$( document ).ready(function(){
+    var age = $('#age :selected').text();
+    if (age == "Other")
+    {
+      $('#employee_age_comments').hide();
+      $('#employee_age_comments').show();
+      $('#add_age_comment_for_employee').hide();
+    }
+    else{
+      $('#employee_age_comments').hide();    
+    }    
+});
+
+$('#add_age_comment_for_employee').on('click', function(){
+    $(this).hide();
+});
+
+$('#age').on('change', function(){
+    var age = $('#age :selected').text();
+    if (age == "Other")
+    {
+      $('#employee_age_comments').hide();
+      $('#employee_age_comments').show();
+      $('#add_age_comment_for_employee').show();
+    }
+    else{
+      $('#remove_comment_for_employee_age .remove_fields').click();  
+      $('#employee_age_comments').hide();    
+    }
+});
+
+</script>

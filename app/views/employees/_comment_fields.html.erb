@@ -11,12 +11,12 @@
           </div>
 	     </div>
    <%if f.object.attr_name.nil? %>    
-      <div class="col-lg-5", id="remove_comment_for_product_<%=current_attr%>"  style="display: none;">
+      <div class="col-lg-5", id="remove_comment_for_employee_<%=current_attr%>"  style="display: none;">
    <%else%>
-      <div class="col-lg-5", id="remove_comment_for_product_<%=f.object.attr_name%>"  style="display: none;">
+      <div class="col-lg-5", id="remove_comment_for_employee_<%=f.object.attr_name%>"  style="display: none;">
    <%end%>
         <%= link_to_remove_association "remove", f %>
-   </div>         
+   </div> 
+
   </div>
 </div>
-

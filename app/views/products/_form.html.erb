@@ -21,14 +21,32 @@
     <%= f.input_field :color, :as => :select, :collection => Product::COLOR, :include_blank => false %>
   </div>  
 
-  <fieldset id="product_comments">
+  <fieldset id="product_color_comments">
     <%= f.fields_for :comments do |builder| %>
-      <%= render 'comment_fields', locals: {:f => builder, :current_attr => "color"} %>
+      <% if builder.object.attr_name.eql? "color" %>
+      <%= render 'comment_fields', :f => builder %>
+      <% end %>
     <% end %>
-    <p class="links", id="add_comment_for_product">
-      <%= link_to_add_association 'add comment for prodcut', f, :comments, :render_options => {class:"btn", :locals => {:current_attr => "color" }} %>
+    <p class="links", id="add_color_comment_for_product">
+      <%= link_to_add_association 'specify product color', f, :comments, :render_options => {class:"btn", :locals => {:current_attr => "color" }} %>
     </p>
   </fieldset> 
+
+  <div class="field", id="weight">
+    <%= f.label :weight %><br>
+    <%= f.input_field :weight, :as => :select, :collection => Product::WEIGHT, :include_blank => false %>
+  </div>  
+
+  <fieldset id="product_weight_comments">
+    <%= f.fields_for :comments do |builder| %>
+      <% if builder.object.attr_name.eql? "weight" %>
+      <%= render 'comment_fields', :f => builder %>
+      <% end %>    <% end %>
+    <p class="links", id="add_weight_comment_for_product">
+      <%= link_to_add_association 'specify product weight', f, :comments, :render_options => {class:"btn", :locals => {:current_attr => "weight" }} %>
+    </p>
+  </fieldset> 
+
 
   <div class="form-actions">
     <%= f.button :submit %>
@@ -40,23 +58,62 @@ $( document ).ready(function(){
     var color = $('#color :selected').text();
     if (color == "Other")
     {
-      $('#product_comments').hide();
-      $('#product_comments').show();
+      $('#product_color_comments').hide();
+      $('#product_color_comments').show();
+      $('#add_color_comment_for_product').hide();
     }
     else{
-      $('#product_comments').hide();    
+      $('#product_color_comments').hide();    
     }
+
+    var weight = $('#weight :selected').text();
+    if (weight == "Other")
+    {
+      $('#product_weight_comments').hide();
+      $('#product_weight_comments').show();
+      $('#add_weight_comment_for_product').hide();
+    }
+    else{
+      $('#product_weight_comments').hide();    
+    }    
+
+
+});
+
+$('#add_color_comment_for_product').on('click', function(){
+    $(this).hide();
 });
 
 $('#color').on('change', function(){
     var color = $('#color :selected').text();
     if (color == "Other")
     {
-      $('#product_comments').hide();
-      $('#product_comments').show();
+      $('#product_color_comments').hide();
+      $('#product_color_comments').show();
+      $('#add_color_comment_for_product').show();
     }
     else{
-      $('#product_comments').hide();    
+      $('#remove_comment_for_product_color .remove_fields').click();  
+      $('#product_color_comments').hide();    
     }
+});
+
+
+$('#add_weight_comment_for_product').on('click', function(){
+    $(this).hide();
+});
+
+$('#weight').on('change', function(){
+    var weight = $('#weight :selected').text();
+    if (weight == "Other")
+    {
+      $('#product_weight_comments').hide();
+      $('#product_weight_comments').show();
+      $('#add_weight_comment_for_product').show();
+    }
+    else{
+      $('#remove_comment_for_product_weight .remove_fields').click();  
+      $('#product_weight_comments').hide();    
+    }   
 });
 </script>
