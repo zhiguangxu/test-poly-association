@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525035037) do
+ActiveRecord::Schema.define(version: 20140526141350) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -19,9 +19,8 @@ ActiveRecord::Schema.define(version: 20140525035037) do
     t.string   "imageable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attr_name"
   end
-
-  add_index "comments", ["imageable_id", "imageable_type"], name: "index_comments_on_imageable_id_and_imageable_type"
 
   create_table "employees", force: true do |t|
     t.string   "name"

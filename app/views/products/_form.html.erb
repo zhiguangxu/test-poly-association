@@ -16,11 +16,47 @@
     <%= f.text_field :price %>
   </div>
   
-  <div class="field">
+  <div class="field", id="color">
     <%= f.label :color %><br>
     <%= f.input_field :color, :as => :select, :collection => Product::COLOR, :include_blank => false %>
   </div>  
+
+  <fieldset id="product_comments">
+    <%= f.fields_for :comments do |builder| %>
+      <%= render 'comment_fields', locals: {:f => builder, :current_attr => "color"} %>
+    <% end %>
+    <p class="links", id="add_comment_for_product">
+      <%= link_to_add_association 'add comment for prodcut', f, :comments, :render_options => {class:"btn", :locals => {:current_attr => "color" }} %>
+    </p>
+  </fieldset> 
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
+
+<script>
+$( document ).ready(function(){
+    var color = $('#color :selected').text();
+    if (color == "Other")
+    {
+      $('#product_comments').hide();
+      $('#product_comments').show();
+    }
+    else{
+      $('#product_comments').hide();    
+    }
+});
+
+$('#color').on('change', function(){
+    var color = $('#color :selected').text();
+    if (color == "Other")
+    {
+      $('#product_comments').hide();
+      $('#product_comments').show();
+    }
+    else{
+      $('#product_comments').hide();    
+    }
+});
+</script>

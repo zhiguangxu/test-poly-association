@@ -7,8 +7,7 @@ class CommentsController < ApplicationController
     if (params[:product_id])
       @product = Product.find(params[:product_id])
       @comments = Comment.all.where("imageable_id=? AND imageable_type=?", params[:product_id], "Product")
-    end
-    if (params[:employee_id])
+    elsif (params[:employee_id])
       @employee = Employee.find(params[:employee_id])
       @comments = Comment.all.where("imageable_id=? AND imageable_type=?", params[:employee_id], "Employee")
     end
@@ -84,6 +83,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :imageable_id, :imageable_type)
+      params.require(:comment).permit(:attr_name, :content, :imageable_id, :imageable_type)
     end
 end

@@ -1,0 +1,15 @@
+<div class="nested-fields">
+  <div class="form-group">
+      <%= f.hidden_field :attr_name, value: current_attr %>
+
+      <div class="col-lg-5" >
+          <div class="input-group" style='margin-bottom:15px'>
+              <span class="input-group-addon">Content</span>
+      				<%= f.text_field :content, :placeholder=>'type the conent of the comment', class: "form-control"%>
+          </div>
+	     </div>
+	 <div class="col-lg-5", id="remove_content_for_product">
+	  		<%= link_to_remove_association "Remove Comment Content", f %>
+	 </div>
+  </div>
+</div>
